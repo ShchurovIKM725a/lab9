@@ -1,6 +1,4 @@
-﻿#include <iostream>
-#include <vector>
-#include <algorithm>
+#include <iostream>
 
 using namespace std;
 
@@ -16,7 +14,7 @@ int main() {
     int rows, cols;
     cin >> rows >> cols;
 
-    vector<vector<int>> matrix(rows, vector<int>(cols));
+    int matrix[100][100];
 
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
@@ -41,16 +39,21 @@ int main() {
     }
 
     if (minRow != maxRow) {
-        swap(matrix[minRow], matrix[maxRow]);
+        for (int j = 0; j < cols; ++j) {
+            int temp = matrix[minRow][j];
+            matrix[minRow][j] = matrix[maxRow][j];
+            matrix[maxRow][j] = temp;
+        }
     }
 
-    vector<int> primes;
+    int primes[10000];
+    int k = 0;
 
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
             cout << matrix[i][j] << " ";
             if (isPrime(matrix[i][j])) {
-                primes.push_back(matrix[i][j]);
+                primes[k++] = matrix[i][j];
             }
         }
         cout << endl;
@@ -58,7 +61,7 @@ int main() {
 
     cout << endl;
 
-    for (int i = 0; i < primes.size(); ++i) {
+    for (int i = 0; i < k; ++i) {
         cout << primes[i] << " ";
     }
 
